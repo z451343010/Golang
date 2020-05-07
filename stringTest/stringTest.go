@@ -1,7 +1,6 @@
 package main
 
-import "fmt"
-
 func main() {
-	fmt.Println()
+	var address string = "Beijing Greatwall"
+	println(address)
 }
