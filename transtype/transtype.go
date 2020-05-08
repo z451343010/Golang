@@ -13,4 +13,9 @@ func main() {
 	var n3 int64 = int64(i)
 	fmt.Println("n3 = ", n3)
 
+	// 范围大的数据类型转换为范围小的数据类型
+	var theNum int64 = 25562
+	var theNum2 int8 = int8(theNum)
+	fmt.Println(" theNum2 = ", theNum2)
+
 }
