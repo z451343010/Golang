@@ -31,10 +31,23 @@ func main() {
 	floatNum, _ = strconv.ParseFloat(floatNumStr, 64)
 	fmt.Printf("floatNum type is %T and floatNum value is %v \n", floatNum, floatNum)
 
-	// 将一个非数字的字符串转换成整型 如：把字符串 "hello" 转成10进制64位的整数
+	// 将一个非数字的字符串转换成整型
+	// 如：把字符串 "hello" 转成10进制64位的整数
 	var strHello string = "hello"
 	var intHello int64
 	intHello, _ = strconv.ParseInt(strHello, 10, 64)
 	fmt.Printf("intHello type %T value = %v \n", intHello, intHello)
+
+	// 把一个bool类型的变量赋值后，再转换，看看最后输出的结果
+	var transFlag bool = true
+	var transStr = "hello"
+	// fmt.Println(transFlag)
+	transFlag, _ = strconv.ParseBool(transStr)
+	fmt.Printf("transFlag type is %T and value is %v \n", transFlag, transFlag)
+	// fmt.Println(transFlag)
+
+	// 获取变量的地址
+	var num int = 3
+	fmt.Println("the address of num is ", &num)
 
 }
