@@ -10,10 +10,10 @@ func main() {
 	// 1
 	var num int
 	fmt.Println("the value of num is:", &num)
-	fmt.Println("the address of num is:", &num)
+	fmt.Println("the address of num is:", num)
 
 	// 2
 	var ptr *int = &num
-	*ptr = 3
+	*ptr = 3 // *ptr访问到了这个内存空间，重新给这个内存空间赋值
 	fmt.Println("the changed value of num is:", num)
 }
