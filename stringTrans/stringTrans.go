@@ -7,8 +7,10 @@ import (
 
 // string 转换成基本数据类型
 func main() {
+
 	var str string = "true"
 	var flag bool
+
 	// 1.函数 strconv.ParseBool() 会返回两个值(value bool, err error)
 	// 2.我们只想获取到 value bool，不想获取 err
 	// 因此使用_来忽略
@@ -27,6 +29,12 @@ func main() {
 	var floatNumStr string = "123456.123456"
 	var floatNum float64
 	floatNum, _ = strconv.ParseFloat(floatNumStr, 64)
-	fmt.Printf("floatNum type is %T and floatNum value is %v", floatNum, floatNum)
+	fmt.Printf("floatNum type is %T and floatNum value is %v \n", floatNum, floatNum)
+
+	// 将一个非数字的字符串转换成整型 如：把字符串 "hello" 转成10进制64位的整数
+	var strHello string = "hello"
+	var intHello int64
+	intHello, _ = strconv.ParseInt(strHello, 10, 64)
+	fmt.Printf("intHello type %T value = %v \n", intHello, intHello)
 
 }
