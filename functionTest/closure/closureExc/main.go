@@ -11,14 +11,14 @@ import (
 // 则返回文件名.jpg，如果已经有.jpg后缀，则返回原文件名。
 // 3）要求使用闭包的方式完成。
 // 4）strings.HasSuffix
-func makeSuffix() func(string) string {
+func makeSuffix(suffix string) func(string) string {
 
 	return func(fileStr string) string {
 
 		if strings.HasSuffix(fileStr, ".jpg") {
 			return fileStr
 		} else {
-			return fileStr + ".jpg"
+			return fileStr + suffix
 		}
 
 	}
@@ -33,8 +33,9 @@ func main() {
 
 	// 定义一个函数变量f
 	// 用于接收闭包返回的函数,返回一个闭包
-	suffixFunction := makeSuffix()
+	suffixFunction := makeSuffix(".jpg")
 
 	fmt.Println(suffixFunction(fileStr))
+	fmt.Println(suffixFunction("333"))
 
 }
