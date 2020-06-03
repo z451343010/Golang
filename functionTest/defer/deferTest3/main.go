@@ -12,4 +12,5 @@ func test2() {
 	connect = openDatabase()
 	defer connect.close()
 	// 其它代码
+
 }
