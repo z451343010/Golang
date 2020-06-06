@@ -21,4 +21,9 @@ func main() {
 	fmt.Printf(timeNow.Format("2006-01-02\n"))
 	fmt.Printf(timeNow.Format("15:04:05\n"))
 
+	// 可以按照 2006/01/02 15:04:05
+	// Golang定义的时间格式获取年月日时分秒等信息
+	fmt.Printf(timeNow.Format("2006\n"))
+	fmt.Printf(timeNow.Format("01\n"))
+	fmt.Printf(timeNow.Format("02\n"))
 }
