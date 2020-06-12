@@ -14,8 +14,7 @@ func binarySearch(leftIndex int, rightIndex int,
 		return
 	}
 
-	var middleIndex int
-	middleIndex = (leftIndex + rightIndex) / 2
+	var middleIndex int = (leftIndex + rightIndex) / 2
 
 	if arr[middleIndex] == searchNum {
 
@@ -43,7 +42,7 @@ func orderSearch(arr [6]int, searchNum int) {
 
 		if arr[i] == searchNum {
 
-			fmt.Println("顺序查找已经找到，下标为：", i)
+			fmt.Println("顺序查找，已经找到，下标为：", i)
 			flag = true
 			return
 
