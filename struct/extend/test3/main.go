@@ -32,6 +32,8 @@ func main() {
 
 	// fmt.Println(b.Name)
 	// fmt.Println(b.age)
-	b.SayOk()
+
+	// 通过匿名结构体来区分
+	b.A.SayOk()
 
 }
