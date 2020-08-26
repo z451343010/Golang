@@ -20,11 +20,11 @@ type Phone struct {
 }
 
 // Phone 实现 Usb接口的方法
-func (phone *Phone) Start() {
+func (phone Phone) Start() {
 	fmt.Println("Phone start")
 }
 
-func (phone *Phone) Stop() {
+func (phone Phone) Stop() {
 	fmt.Println("Phone stop")
 }
 
@@ -34,11 +34,11 @@ type Camera struct {
 }
 
 // Camera 实现 Usb接口的方法
-func (camera *Camera) Start() {
+func (camera Camera) Start() {
 	fmt.Println("Camera start")
 }
 
-func (camera *Camera) Stop() {
+func (camera Camera) Stop() {
 	fmt.Println("Camera stop")
 }
 
@@ -46,8 +46,10 @@ func main() {
 
 	// 定义个Usb接口数组，可以存放 Phone 和 Camera 的结构体变量
 	var usbArr [3]Usb
-	usbArr[0] = &Phone{"HUAWEI"}
-	usbArr[1] = &Phone{"XIAOMI"}
-	usbArr[2] = &Camera{"CANON"}
+	usbArr[0] = Phone{"HUAWEI"}
+	usbArr[1] = Phone{"XIAOMI"}
+	usbArr[2] = Camera{"CANON"}
+
+	fmt.Println(usbArr)
 
 }
