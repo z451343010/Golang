@@ -52,4 +52,9 @@ func main() {
 
 	fmt.Println(usbArr)
 
+	// var canonCamera Camera
+	// var usb Usb
+	// usb = canonCamera
+	// fmt.Println(usb)
+
 }
