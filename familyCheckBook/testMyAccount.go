@@ -51,6 +51,13 @@ func main() {
 			fmt.Scanln(&reduceMoney)
 			fmt.Println("支出的说明：")
 			fmt.Scanln(&note)
+
+			// 判断余额
+			if reduceMoney > balance {
+				fmt.Println("余额不足")
+				break
+			}
+
 			balance -= reduceMoney
 			// details = "收入     " + string(balance) + "     " + string(addMoney) + "     " + string(note)
 			details += fmt.Sprintf("支出\t     %v\t     %v\t     %s\t  \n",
