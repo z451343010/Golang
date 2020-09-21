@@ -7,11 +7,11 @@ import (
 
 // 定义一个结构体
 type Monster struct {
-	Name     string
-	Age      int
-	Birthday string
-	Salary   float64
-	Skill    string
+	Name     string  `json:"name"`
+	Age      int     `json:"age"`
+	Birthday string  `json:"birthday"`
+	Salary   float64 `json:"salary"`
+	Skill    string  `json:"skill"`
 }
 
 func main() {
