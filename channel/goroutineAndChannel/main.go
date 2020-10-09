@@ -13,7 +13,7 @@ import "fmt"
 
 // write Data
 func writeData(intChan chan int) {
-	for i := 0; i < 50; i++ {
+	for i := 0; i < 500; i++ {
 		intChan <- i
 		fmt.Println(" ====== writeData working ======")
 	}
@@ -49,8 +49,12 @@ func main() {
 	go readData(intChan, exitChan)
 
 	for {
-		_, ok := <-exitChan
+		v, ok := <-exitChan
+		fmt.Println("v outside =", v)
+		fmt.Println("ok outside =", ok)
 		if !ok {
+			fmt.Println("v inside =", v)
+			fmt.Println("ok inside =", ok)
 			break
 		}
 	}
