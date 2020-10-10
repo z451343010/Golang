@@ -150,6 +150,9 @@ func sort(readFilePath string, writeFilePath string,
 
 	}
 
+	// exitReadChan <- true
+	// close(exitReadChan)
+
 }
 
 func main() {
