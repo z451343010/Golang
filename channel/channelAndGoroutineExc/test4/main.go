@@ -60,7 +60,7 @@ func main() {
 	var countNum int   // 统计 1-countNum的数字
 
 	// 设置开启的协程数量、countNum
-	routineNum = 12
+	routineNum = 6
 	countNum = 80000
 
 	intChan := make(chan int, countNum)
