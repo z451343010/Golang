@@ -163,9 +163,12 @@ func ReverseDoubleNode(head *DoubleNode) {
 	// 逆序输出双向链表
 	fmt.Println("\n逆序输出双向链表：")
 	for temp.pre != nil {
+
 		fmt.Printf("[%d %s %s] <== ", temp.no, temp.name,
 			temp.nickname)
+
 		temp = temp.pre
+
 	}
 
 }
