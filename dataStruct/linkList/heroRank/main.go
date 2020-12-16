@@ -73,6 +73,35 @@ func InsertHeroNode2(head *HeroNode, newHeroNode *HeroNode) {
 
 }
 
+// 删除单向链表的节点
+func DelHeroNode(head *HeroNode, id int) {
+
+	temp := head
+	var flag bool = false // 是否找得到该id的节点
+
+	for {
+
+		if temp.next == nil {
+			break
+		}
+
+		if temp.next.no == id {
+			flag = true
+			break
+		}
+
+		temp = temp.next
+
+	}
+
+	if flag {
+		temp.next = temp.next.next
+	} else {
+		fmt.Println("can not find the node")
+	}
+
+}
+
 // 遍历单向链表
 func ListHeroNode(head *HeroNode) {
 
@@ -141,7 +170,7 @@ func main() {
 
 	ListHeroNode(head)
 
-	fmt.Println("有序地插入节点============")
+	fmt.Println("\n有序地插入节点============")
 	InsertHeroNode2(head2, hero3)
 	InsertHeroNode2(head2, hero2)
 	InsertHeroNode2(head2, hero1)
@@ -171,6 +200,10 @@ func main() {
 	}
 	InsertHeroNode2(head2, hero99)
 
+	ListHeroNode(head2)
+
+	DelHeroNode(head2, 0)
+	fmt.Println("\n删除了节点后的链表为============")
 	ListHeroNode(head2)
 
 }
