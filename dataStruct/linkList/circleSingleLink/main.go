@@ -39,37 +39,90 @@ func InsertCircleNode(head *CatNode, newNode *CatNode) {
 }
 
 // 按照 no, 有序地往环形链表中加入节点
-// func InsertCircleNodeByOrder(head *CatNode, newNode *CatNode) {
+func InsertCircleNodeByOrder(head *CatNode, newNode *CatNode) *CatNode {
 
-// 如果单向环形链表没有任何节点
-// 	if head.next == nil {
+	// 辅助节点
+	temp := head
+	// 辅助指针，永远指向单向环形队列的尾部
+	tail := head
 
-// 		head.no = newNode.no
-// 		head.name = newNode.name
-// 		head.next = head
+	// 新节点进来时，单向环形链表为空
+	// 则让第一个节点为头节点，构成自循环
+	if head.next == nil {
+		head.name = newNode.name
+		head.no = newNode.no
+		head.next = head
+		return head
+	}
 
-// 		return
+	// 新节点进来时，单向环形链表中只有一个自循环的节点
+	if temp.next == head {
 
-// 	}
+		head.next = newNode
+		newNode.next = head
 
-// 	temp := head
+		// 比较 newNode 和头节点的id大小
+		// 如果新节点的id较小，则称为头节点
+		if newNode.no < temp.no {
+			head = newNode
+		}
 
-// 	for {
+	} else { // 单向环形链表有两个及以上的节点
 
-// 		if temp.next == head {
-// 			if temp.no > newNode.no {
+		// 让 tail 指向尾部节点
+		for tail.next != head {
+			tail = tail.next
+		}
 
-// 				newNode.next = temp.next
-// 				newNode = head
-// 				temp.next = newNode
+		// 如果新节点的 no 小于头节点
+		// 让新节点成为头节点
+		if head.no > newNode.no {
+			newNode.next = head
+			tail.next = newNode
+			head = newNode
+			return head
+		}
 
-// 			}
-// 			break
-// 		}
+		// 如果新节点大于头节点
+		// 循环地在单向环形链表中找到适合插入新节点的位置
+		flag := false
+		for {
 
-// 	}
+			if temp.no == newNode.no {
+				break
+			}
 
-// }
+			// 如果循环到了单向环形链表的尾部
+			// 新节点的 no 大于单向环形链表的任何一个节点
+			// 因此把新节点插入到单向环形链表的尾部
+			if temp.next == head {
+				flag = true
+				break
+			}
+
+			if temp.next.no > newNode.no {
+				flag = true
+				break
+			}
+
+			temp = temp.next
+
+		}
+
+		if flag {
+
+			newNode.next = temp.next
+			temp.next = newNode
+
+		} else {
+			fmt.Println("编号为 %d 的节点已经存在", newNode.no)
+		}
+
+	}
+
+	return head
+
+}
 
 // 删除环形单向链表的节点
 func DelCircleNode(head *CatNode, id int) *CatNode {
@@ -114,7 +167,7 @@ func DelCircleNode(head *CatNode, id int) *CatNode {
 
 			}
 			helper.next = temp.next
-			fmt.Printf("删除的猫 = %d\n", id)
+			fmt.Printf("\n删除的猫 = %d\n", id)
 			flag = false
 			break
 		}
@@ -140,7 +193,7 @@ func DelCircleNode(head *CatNode, id int) *CatNode {
 
 }
 
-// 显示环形链表的节点
+// 显示单向环形链表的节点
 func ListCircleNode(head *CatNode) {
 
 	temp := head
@@ -154,9 +207,6 @@ func ListCircleNode(head *CatNode) {
 		temp = temp.next
 
 	}
-
-	// fmt.Println("\ntemp => ", temp)
-	// fmt.Println("temp.next => ", temp.next)
 
 }
 
@@ -185,30 +235,66 @@ func main() {
 	head = DelCircleNode(head, 1)
 	ListCircleNode(head)
 
-	// 测试有序排列数组
-	// head2 := &CatNode{}
+	// 测试有序插入新节点
+	head2 := &CatNode{}
 
-	// node4 := &CatNode{
-	// 	no:   4,
-	// 	name: "Cat4",
-	// }
+	node4 := &CatNode{
+		no:   4,
+		name: "Cat4",
+	}
 
-	// node5 := &CatNode{
-	// 	no:   5,
-	// 	name: "Cat5",
-	// }
+	node5 := &CatNode{
+		no:   5,
+		name: "Cat5",
+	}
 
-	// node33 := &CatNode{
-	// 	no:   3,
-	// 	name: "Cat33",
-	// }
+	node33 := &CatNode{
+		no:   3,
+		name: "Cat33",
+	}
+
+	node66 := &CatNode{
+		no:   6,
+		name: "Cat66",
+	}
+
+	node88 := &CatNode{
+		no:   88,
+		name: "Cat88",
+	}
+
+	node7 := &CatNode{
+		no:   7,
+		name: "Cat7",
+	}
+
+	node77 := &CatNode{
+		no:   7,
+		name: "Cat77",
+	}
+
+	node22 := &CatNode{
+		no:   2,
+		name: "Cat22",
+	}
 
 	fmt.Println("\n有序地显示节点============")
-	// InsertCircleNodeByOrder(head2, node5)
-	// InsertCircleNodeByOrder(head2, node4)
-	// InsertCircleNodeByOrder(head2, node33)
-	// InsertCircleNodeByOrder(head2, node6)
-	// InsertCircleNodeByOrder(head2, node2)
-	// ListCircleNode(head2)
+	head2 = InsertCircleNodeByOrder(head2, node5)
+	head2 = InsertCircleNodeByOrder(head2, node4)
+	head2 = InsertCircleNodeByOrder(head2, node33)
+	head2 = InsertCircleNodeByOrder(head2, node66)
+	head2 = InsertCircleNodeByOrder(head2, node88)
+	head2 = InsertCircleNodeByOrder(head2, node7)
+	head2 = InsertCircleNodeByOrder(head2, node77)
+	head2 = InsertCircleNodeByOrder(head2, node22)
+	ListCircleNode(head2)
+
+	// 测试删除有序环形链表
+	head2 = DelCircleNode(head2, 6)
+	ListCircleNode(head2)
+
+	// 测试删除有序环形链表
+	head2 = DelCircleNode(head2, 2)
+	ListCircleNode(head2)
 
 }
