@@ -104,7 +104,7 @@ func (this *Queue) GetQueueRandomTime(routineNum int) {
 		if err != nil {
 			fmt.Println("队列为空")
 		} else {
-			fmt.Printf("%d 号协程 服务 ---》%d 号客户\n", routineNum, num)
+			fmt.Printf("%d 号协程 服务 ---》 %d 号客户\n", routineNum, num)
 		}
 
 	}
