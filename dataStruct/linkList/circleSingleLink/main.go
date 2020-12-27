@@ -115,7 +115,7 @@ func InsertCircleNodeByOrder(head *CatNode, newNode *CatNode) *CatNode {
 			temp.next = newNode
 
 		} else {
-			fmt.Println("编号为 %d 的节点已经存在", newNode.no)
+			fmt.Printf("编号为 %d 的节点已经存在,无法插入\n", newNode.no)
 		}
 
 	}
@@ -195,6 +195,8 @@ func DelCircleNode(head *CatNode, id int) *CatNode {
 
 // 显示单向环形链表的节点
 func ListCircleNode(head *CatNode) {
+
+	fmt.Println("\n单向环形链表的信息如下============")
 
 	temp := head
 
