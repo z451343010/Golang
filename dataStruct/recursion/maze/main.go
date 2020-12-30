@@ -90,8 +90,8 @@ func main() {
 	}
 
 	GetMazeWay(&mazeMap, 1, 1)
-	fmt.Println()
-	fmt.Println("==========迷宫地图&走迷宫的路径==========\n")
+
+	fmt.Println("\n==========迷宫地图&走迷宫的路径==========\n")
 	for i := 0; i < len(mazeMap); i++ {
 
 		for j := 0; j < len(mazeMap[i]); j++ {
