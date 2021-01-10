@@ -45,6 +45,7 @@ func quickSort(slice []int, left int, right int) {
 
 func main() {
 	var slice []int = []int{108, 3, 88, 12, 8, 88, 555, 7, 91, 35, 66}
+	// var slice []int = []int{555, 66, 91, 35, 88}
 	quickSort(slice, 0, len(slice)-1)
 	fmt.Println("slice = ", slice)
 }

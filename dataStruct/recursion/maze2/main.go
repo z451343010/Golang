@@ -13,12 +13,12 @@ type Box struct {
 }
 
 type Path struct {
-	data   [50]Box
+	data   [200]Box
 	length int
 }
 
 func mazePath(startX int, startY int, endX int, endY int,
-	path *Path, mazeMap *[4][4]int) {
+	path *Path, mazeMap *[10][10]int) {
 
 	var (
 		direction int
@@ -30,6 +30,11 @@ func mazePath(startX int, startY int, endX int, endY int,
 		path.data[path.length].x = startX
 		path.data[path.length].y = startY
 		path.length++
+
+		for i := 0; i < path.length; i++ {
+			fmt.Printf("(%d,%d)\n", path.data[i].x, path.data[i].y)
+		}
+
 	} else {
 
 		if mazeMap[startX][startY] == 0 {
@@ -77,24 +82,18 @@ func mazePath(startX int, startY int, endX int, endY int,
 
 func main() {
 
-	var mazeMap [4][4]int
-
-	// 把最外的一圈设置为墙
-	for i := 0; i < len(mazeMap); i++ {
-
-		for j := 0; j < len(mazeMap[i]); j++ {
-			if i == 0 || i == (len(mazeMap)-1) {
-				mazeMap[i][j] = 1
-			}
-			if j == 0 || j == (len(mazeMap[i])-1) {
-				mazeMap[i][j] = 1
-			}
-		}
-
+	mazeMap := [10][10]int{
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+		{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+		{1, 0, 0, 0, 0, 1, 1, 0, 0, 1},
+		{1, 0, 1, 1, 1, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+		{1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
+		{1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	}
-
-	// mazeMap[3][1] = 1
-	// mazeMap[3][2] = 1
 
 	// 输出地图
 	fmt.Println("==========迷宫地图==========\n")
@@ -112,14 +111,13 @@ func main() {
 	var (
 		startX int = 1
 		startY int = 1
-		endX   int = 2
-		endY   int = 2
+		endX   int = 8
+		endY   int = 8
 	)
 
 	path := &Path{}
 
 	mazePath(startX, startY, endX, endY, path, &mazeMap)
 
-	fmt.Println(path.data[0])
-
+	fmt.Println(path)
 }
