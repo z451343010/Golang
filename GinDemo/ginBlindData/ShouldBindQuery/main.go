@@ -21,6 +21,7 @@ func main() {
 
 	engine := gin.Default()
 
+	// GET
 	// http://localhost:8080/hello?name=Davie&classes=软件工程
 	engine.GET("/hello", func(context *gin.Context) {
 

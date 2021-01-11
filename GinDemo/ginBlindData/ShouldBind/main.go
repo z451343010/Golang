@@ -22,6 +22,7 @@ func main() {
 
 	engine := gin.Default()
 
+	// POST
 	// http://localhost:8080/register
 	engine.POST("/register", func(context *gin.Context) {
 
