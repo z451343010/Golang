@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+	<head>
+        <!--
+            html引用css js 文件时
+            ../ 代表该 html 所在文件的上级目录
+            比如 index.html 文件在 projectTest/main/html 下
+            因此搜索 resources 里面的文件时需要
+            ../ 返回html的上级目录 projectTest/main/
+            然后再经由 projectTest/main/ 目录里面搜索 resources/skeleton
+        -->
+        <script src="../resources/skeleton/jquery-3.3.1.min.js"></script>
+        <script typere="text/javascript" src="../resources/skeleton/angular.min-1.6.5.js"></script>
+        <!--
+        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+        -->
+        <meta charset="utf-8">
+		<title>Gin框架</title>
+	</head>
+	<body ng-controller="testController"> 
+        <button ng-click="testClick()">
+            下一题
+        </button>  
+    </body>
+
+    <script type="text/javascript">
+    
+    var app = angular.module('testApp', []);
+    app.controller('testController', function($scope, $http) {
+        
+        $scope.testClick = function() {
+
+            console.log("function in");
+            
+			// 向后台发送 ajax 请求
+			$http({
+				method : 'POST',
+				url : 'test',
+				headers : {
+					"Content-Type" : "application/json ; charset=UTF-8"
+				}
+			}).then(function successCallback(response) {
+				console.log(response.data)
+			}, function errorCallback(response) {
+				
+			});
+
+        };
+
+    });
+    
+    </script>
+</html>
