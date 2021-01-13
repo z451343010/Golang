@@ -1,6 +1,6 @@
 /*
 	GoWeb
-	Gin框架
+	Gin 框架
 	中间件 middleWare
 */
 package main
