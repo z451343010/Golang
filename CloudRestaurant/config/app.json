@@ -2,5 +2,22 @@
     "app_name":"cloudrestaurant", 
     "app_mode":"debug",
     "app_host":"localhost",  
-    "app_port":"8090" 
+    "app_port":"8090",
+    "sms":{
+        "sign_name":"XANXUS线上云餐厅",
+        "template_code":"SMS_209566257",
+        "app_key":"LTAI4G95FP8GQbEb3DpFEsXy",
+        "app_secret":"NJpk7iv3aJW3QsFwHTGEv4Bxe3xACO",
+        "region_id":"cn-hangzhou"
+    },
+    "database":{
+        "driver":"mysql",
+        "user":"root",
+        "password":"zZ18960313139",
+        "host":"127.0.0.1",
+        "port":"3306",
+        "db_name":"cloudrestaurant",
+        "charset":"utf8",
+        "show_sql":true
+    } 
 }

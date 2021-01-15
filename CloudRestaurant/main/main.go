@@ -16,6 +16,7 @@ import (
 func registerRouter(router *gin.Engine) {
 
 	new(controller.HelloController).Router(router)
+	new(controller.MemberController).Router(router)
 
 }
 
