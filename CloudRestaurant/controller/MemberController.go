@@ -18,6 +18,8 @@ func (memberController *MemberController) Router(engine *gin.Engine) {
 	engine.GET("/sendMessage", memberController.sendMessage)
 	engine.GET("/api/sendcode", memberController.sendSmsCode)
 	engine.POST("/api/login_sms", memberController.smsLogin)
+	engine.GET("/api/captcha", memberController.captcha)
+	engine.POST("/api/verifycaptcha", memberController.verifyCaptcha)
 
 }
 
@@ -89,4 +91,29 @@ func (memberController *MemberController) smsLogin(context *gin.Context) {
 
 	tool.Failed(context, "登录失败")
 
+}
+
+// 生成图片验证码
+func (memberController *MemberController) captcha(context *gin.Context) {
+
+	// 生成图形化验证码，并返回客户端
+	tool.GenerateCaptcha(context)
+
+}
+
+// 验证图片验证码是否正确
+func (MemberController *MemberController) verifyCaptcha(context *gin.Context) {
+
+	var captcha tool.CaptchaResult
+	err := tool.Decode(context.Request.Body, &captcha)
+	if err != nil {
+		tool.Failed(context, "参数解析失败")
+		return
+	}
+	result := tool.VerifyCaptcha(captcha.Id, captcha.VerifyValue)
+	if result {
+		fmt.Println("图形验证码验证通过")
+	} else {
+		fmt.Println("图形验证码验证失败")
+	}
 }

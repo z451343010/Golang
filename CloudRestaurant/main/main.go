@@ -72,6 +72,16 @@ func main() {
 		panic(err.Error())
 	}
 
+	// 实例化数据库
+	_, err = tool.OrmEngine(cfg)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	// 初始化 redis 配置
+	tool.InitRedisStore()
+
 	app := gin.Default()
 
 	registerRouter(app)
