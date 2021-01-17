@@ -20,6 +20,38 @@ func (memberController *MemberController) Router(engine *gin.Engine) {
 	engine.POST("/api/login_sms", memberController.smsLogin)
 	engine.GET("/api/captcha", memberController.captcha)
 	engine.POST("/api/verifycaptcha", memberController.verifyCaptcha)
+	engine.POST("/api/login_pwd", memberController.loginPwd)
+
+}
+
+// 用户名 + 密码 登录
+func (memberController *MemberController) loginPwd(context *gin.Context) {
+
+	// 1.解析用户名登陆传递参数
+	var loginParam param.LoginParam
+	// 解析请求的参数
+	err := tool.Decode(context.Request.Body, &loginParam)
+	if err != nil {
+		tool.Failed(context, "参数解析失败")
+		return
+	}
+
+	// 2.验证验证码
+	// validate := tool.VerifyCaptcha(loginParam.Id, loginParam.Value)
+	// if !validate {
+	// 	tool.Failed(context, "验证码不正确，请重新验证")
+	// 	return
+	// }
+
+	// 3.登录
+	memberService := service.MemberService{}
+	member := memberService.LoginPwd(loginParam.Name, loginParam.Password)
+	if member.Id != 0 {
+		tool.Success(context, &member)
+		return
+	}
+
+	tool.Failed(context, "登录失败")
 
 }
 

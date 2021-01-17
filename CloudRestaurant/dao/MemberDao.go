@@ -75,3 +75,22 @@ func (memberDao *MemberDao) InsertMember(member model.Member) int64 {
 	return result
 
 }
+
+// 根据 用户名 + 密码 查询数据
+func (memberDao *MemberDao) QueryByNameAndPwd(name string, password string) *model.Member {
+
+	var member model.Member
+
+	// 密码保存进入数据库时，对其加密
+	password = tool.EncoderSha256(password)
+
+	_, err := memberDao.Where("user_name = ? and password = ?", name, password).Get(&member)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil
+	}
+
+	return &member
+
+}

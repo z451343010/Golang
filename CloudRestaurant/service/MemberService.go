@@ -119,3 +119,26 @@ func (memberService *MemberService) SmsLogin(loginParam param.SmsLoginParam) *mo
 	return &user
 
 }
+
+// 用户名 + 密码 登录
+func (memberService *MemberService) LoginPwd(name string, password string) *model.Member {
+
+	// 1.使用用户名 + 密码 查询用户信息
+	memberDao := dao.MemberDao{tool.DbEngine}
+	member := memberDao.QueryByNameAndPwd(name, password)
+	if member.Id != 0 {
+		return member
+	}
+
+	// 2.用户不存在，作为新用户插入数据
+	user := model.Member{}
+	user.UserName = name
+	user.Password = tool.EncoderSha256(password)
+	user.RegisterTime = time.Now().Unix()
+
+	result := memberDao.InsertMember(user)
+	user.Id = result
+
+	return &user
+
+}

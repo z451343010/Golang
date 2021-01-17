@@ -48,7 +48,7 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 	orm.Engine = engine
 
 	DbEngine = orm
-	return orm, nil
+	return DbEngine, nil
 
 }
 
