@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.852
+	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible

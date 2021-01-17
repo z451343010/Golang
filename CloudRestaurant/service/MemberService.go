@@ -142,3 +142,16 @@ func (memberService *MemberService) LoginPwd(name string, password string) *mode
 	return &user
 
 }
+
+// 上传用户头像
+func (memberService *MemberService) UploadAvatar(userId int64, fileName string) string {
+
+	memberDao := dao.MemberDao{tool.DbEngine}
+	result := memberDao.UpdateMemberAvatar(userId, fileName)
+	if result == 0 {
+		return ""
+	}
+
+	return string(result)
+
+}

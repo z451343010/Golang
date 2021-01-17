@@ -1,10 +1,14 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
+	"gin/CloudRestaurant/model"
 	"gin/CloudRestaurant/param"
 	"gin/CloudRestaurant/service"
 	"gin/CloudRestaurant/tool"
+	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +25,8 @@ func (memberController *MemberController) Router(engine *gin.Engine) {
 	engine.GET("/api/captcha", memberController.captcha)
 	engine.POST("/api/verifycaptcha", memberController.verifyCaptcha)
 	engine.POST("/api/login_pwd", memberController.loginPwd)
+	// 头像上传
+	engine.POST("/api/upload/avator", memberController.uploadAvator)
 
 }
 
@@ -47,6 +53,14 @@ func (memberController *MemberController) loginPwd(context *gin.Context) {
 	memberService := service.MemberService{}
 	member := memberService.LoginPwd(loginParam.Name, loginParam.Password)
 	if member.Id != 0 {
+		// 将用户信息保存到 session 中
+		sess, _ := json.Marshal(member)
+		err = tool.SetSession(context, "user_"+string(member.Id), sess)
+		if err != nil {
+			tool.Failed(context, "保存 session 失败")
+			return
+		}
+
 		tool.Success(context, &member)
 		return
 	}
@@ -117,6 +131,14 @@ func (memberController *MemberController) smsLogin(context *gin.Context) {
 
 	// 登录成功
 	if member != nil {
+
+		sess, _ := json.Marshal(member)
+		err = tool.SetSession(context, "user_id"+string(member.Id), sess)
+		if err != nil {
+			tool.Failed(context, "保存 session 失败")
+			return
+		}
+
 		tool.Success(context, member)
 		return
 	}
@@ -134,7 +156,7 @@ func (memberController *MemberController) captcha(context *gin.Context) {
 }
 
 // 验证图片验证码是否正确
-func (MemberController *MemberController) verifyCaptcha(context *gin.Context) {
+func (memberController *MemberController) verifyCaptcha(context *gin.Context) {
 
 	var captcha tool.CaptchaResult
 	err := tool.Decode(context.Request.Body, &captcha)
@@ -148,4 +170,45 @@ func (MemberController *MemberController) verifyCaptcha(context *gin.Context) {
 	} else {
 		fmt.Println("图形验证码验证失败")
 	}
+}
+
+// 用户头像上传
+func (memberController *MemberController) uploadAvator(context *gin.Context) {
+
+	// 1.解析上传的参数 file、user_id
+	userId := context.PostForm("user_id") // 用户id
+	file, err := context.FormFile("avatar")
+	if err != nil || userId == "" {
+		tool.Failed(context, "参数解析失败")
+		return
+	}
+
+	// 2.判断 user_id 对应的用户是否已经登录
+	sess := tool.GetSession(context, "user_"+userId)
+	if sess == nil {
+		tool.Failed(context, "参数不合法")
+		return
+	}
+	var member model.Member
+	json.Unmarshal(sess.([]byte), &member)
+
+	// 3.file 保存到本地
+	fileName := "./uploadfile/" + strconv.FormatInt(time.Now().Unix(), 10) + file.Filename
+	err = context.SaveUploadedFile(file, fileName)
+	if err != nil {
+		tool.Failed(context, "头像更新失败")
+		return
+	}
+
+	// 4.将保存后的文件本地路径，保存到用户表中的头像字段
+	memberService := service.MemberService{}
+	path := memberService.UploadAvator(member.Id, fileName[1:])
+	if path != "" {
+		tool.Success(context, "http://localhost:8090"+path)
+		return
+	}
+
+	// 5.返回结果
+	tool.Failed(context, "用户头像上传失败")
+
 }

@@ -94,3 +94,16 @@ func (memberDao *MemberDao) QueryByNameAndPwd(name string, password string) *mod
 	return &member
 
 }
+
+// 更新用户的头像地址字段
+func (memberDao *MemberDao) UpdateMemberAvatar(userId int64, fileName string) int64 {
+
+	member := model.Member{Avatar: fileName}
+	result, err := memberDao.Where("id = ? ", userId).Update(&member)
+	if err != nil {
+		fmt.Println(err.Error())
+		return 0
+	}
+	return result
+
+}

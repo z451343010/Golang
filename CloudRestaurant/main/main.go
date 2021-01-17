@@ -84,10 +84,13 @@ func main() {
 
 	app := gin.Default()
 
-	registerRouter(app)
-
 	// 设置全局跨域访问
 	app.Use(Cors())
+
+	// 设置 sessions
+	tool.InitSession(app)
+
+	registerRouter(app)
 
 	app.Run(cfg.AppHost + ":" + cfg.AppPort)
 
