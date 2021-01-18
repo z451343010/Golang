@@ -29,7 +29,9 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 		return nil, err
 	}
 
+	// 显示 SQL 语句
 	engine.ShowSQL(database.ShowSql)
+
 	// 把结构体 SmsCode 映射成数据库的一张表
 	err = engine.Sync2(new(model.SmsCode))
 	if err != nil {
@@ -41,6 +43,13 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 	err = engine.Sync2(new(model.Member))
 	if err != nil {
 		fmt.Println("把 Member 映射成表时出错")
+		return nil, err
+	}
+
+	// 把结构体 FoodCategory 映射成数据库的一张表
+	err = engine.Sync2(new(model.FoodCategory))
+	if err != nil {
+		fmt.Println("把 FoodCategory 映射成表时出错")
 		return nil, err
 	}
 

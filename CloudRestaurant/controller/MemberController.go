@@ -202,7 +202,7 @@ func (memberController *MemberController) uploadAvator(context *gin.Context) {
 
 	// 4.将保存后的文件本地路径，保存到用户表中的头像字段
 	memberService := service.MemberService{}
-	path := memberService.UploadAvator(member.Id, fileName[1:])
+	path := memberService.UploadAvatar(member.Id, fileName[1:])
 	if path != "" {
 		tool.Success(context, "http://localhost:8090"+path)
 		return
