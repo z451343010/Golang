@@ -29,8 +29,6 @@ func (shopDao *ShopDao) QueryShops(longitude, latitude float64, keyword string) 
 
 	} else {
 
-		fmt.Println("keyword = ", keyword)
-
 		err := shopDao.Engine.Where("longitude > ? and longitude < ? and latitude > ? and latitude < ? and name like '%"+keyword+"%'",
 			longitude-DEFAULT_RANGE, longitude+DEFAULT_RANGE,
 			latitude-DEFAULT_RANGE, latitude+DEFAULT_RANGE).Find(&shops)
@@ -42,5 +40,19 @@ func (shopDao *ShopDao) QueryShops(longitude, latitude float64, keyword string) 
 	}
 
 	return shops
+
+}
+
+// 根据店铺ID,查询该店铺提供的服务
+func (shopDao *ShopDao) QueryServiceByShopId(shopId int64) []model.Service {
+
+	var services []model.Service
+	err := shopDao.Table("service").Join("INNER", "shop_service", "service.id = shop_service.service_id and shop_service.shop_id = ?", shopId).Find(&services)
+	if err != nil {
+		fmt.Println("根据店铺ID，查询该店铺提供的服务错误")
+		return nil
+	}
+
+	return services
 
 }

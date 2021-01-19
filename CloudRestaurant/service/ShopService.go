@@ -51,3 +51,11 @@ func (shopService *ShopService) ShopList(long, lati string) []model.Shop {
 	return shopDao.QueryShops(longitude, latitude, "")
 
 }
+
+// 根据 shopId 获取店铺提供的服务
+func (shopService *ShopService) GetService(shopId int64) []model.Service {
+
+	shopDao := dao.ShopDao{tool.DbEngine}
+	return shopDao.QueryServiceByShopId(shopId)
+
+}

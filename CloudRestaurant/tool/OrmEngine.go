@@ -60,6 +60,27 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 		return nil, err
 	}
 
+	// 把结构体 Service 映射成数据库的一张表
+	err = engine.Sync2(new(model.Service))
+	if err != nil {
+		fmt.Println("把 Service 映射成表时出错")
+		return nil, err
+	}
+
+	// 把结构体 ShopService 映射成数据库的一张表
+	err = engine.Sync2(new(model.ShopService))
+	if err != nil {
+		fmt.Println("把 ShopService 映射成表时出错")
+		return nil, err
+	}
+
+	// 把结构体 Goods 映射成数据库的一张表
+	err = engine.Sync2(new(model.Goods))
+	if err != nil {
+		fmt.Println("把 Goods 映射成表时出错")
+		return nil, err
+	}
+
 	orm := new(Orm)
 	orm.Engine = engine
 

@@ -33,12 +33,24 @@ func (sc *ShopController) GetShopList(context *gin.Context) {
 	shopService := service.ShopService{}
 	shops := shopService.ShopList(longitude, latitude)
 
-	if len(shops) != 0 {
-		tool.Success(context, shops)
+	if len(shops) == 0 {
+		tool.Failed(context, "暂未获取到商户信息")
 		return
 	}
 
-	tool.Failed(context, "暂未获取到商户信息")
+	// 进一步获取店铺提供的服务
+	for index, shop := range shops {
+
+		shopServices := shopService.GetService(shop.Id)
+
+		if len(shopServices) == 0 {
+			shops[index].Supports = nil
+		} else {
+			shops[index].Supports = shopServices
+		}
+	}
+
+	tool.Success(context, shops)
 
 }
 
