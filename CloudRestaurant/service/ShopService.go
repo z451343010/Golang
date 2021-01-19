@@ -11,6 +11,27 @@ import (
 type ShopService struct {
 }
 
+// 根据关键词，搜索店铺
+func (shopService *ShopService) SearchShops(long, lati, keyword string) []model.Shop {
+
+	shopDao := dao.ShopDao{tool.DbEngine}
+
+	longitude, err := strconv.ParseFloat(long, 10)
+	if err != nil {
+		fmt.Println("转换经度时出错")
+		return nil
+	}
+
+	latitude, err := strconv.ParseFloat(lati, 10)
+	if err != nil {
+		fmt.Println("转换纬度时出错")
+		return nil
+	}
+
+	return shopDao.QueryShops(longitude, latitude, keyword)
+
+}
+
 // 查询商铺列表数据
 func (shopService *ShopService) ShopList(long, lati string) []model.Shop {
 
@@ -27,6 +48,6 @@ func (shopService *ShopService) ShopList(long, lati string) []model.Shop {
 	}
 
 	shopDao := dao.ShopDao{tool.DbEngine}
-	return shopDao.QueryShops(longitude, latitude)
+	return shopDao.QueryShops(longitude, latitude, "")
 
 }

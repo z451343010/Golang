@@ -13,18 +13,32 @@ type ShopDao struct {
 }
 
 // 从数据库中查询店铺
-func (shopDao *ShopDao) QueryShops(longitude, latitude float64) []model.Shop {
+func (shopDao *ShopDao) QueryShops(longitude, latitude float64, keyword string) []model.Shop {
 
 	var shops []model.Shop
-	err := shopDao.Engine.Where("longitude > ? and longitude < ? and latitude > ? and latitude < ?",
-		longitude-DEFAULT_RANGE, longitude+DEFAULT_RANGE,
-		latitude-DEFAULT_RANGE, latitude+DEFAULT_RANGE).Find(&shops)
 
-	fmt.Println(shops)
+	if keyword == "" {
 
-	if err != nil {
-		fmt.Println("查询数据库 Shop 出错")
-		return nil
+		err := shopDao.Engine.Where("longitude > ? and longitude < ? and latitude > ? and latitude < ?",
+			longitude-DEFAULT_RANGE, longitude+DEFAULT_RANGE,
+			latitude-DEFAULT_RANGE, latitude+DEFAULT_RANGE).Find(&shops)
+		if err != nil {
+			fmt.Println("查询数据库 Shop 出错")
+			return nil
+		}
+
+	} else {
+
+		fmt.Println("keyword = ", keyword)
+
+		err := shopDao.Engine.Where("longitude > ? and longitude < ? and latitude > ? and latitude < ? and name like '%"+keyword+"%'",
+			longitude-DEFAULT_RANGE, longitude+DEFAULT_RANGE,
+			latitude-DEFAULT_RANGE, latitude+DEFAULT_RANGE).Find(&shops)
+		if err != nil {
+			fmt.Println("查询数据库 Shop 出错")
+			return nil
+		}
+
 	}
 
 	return shops

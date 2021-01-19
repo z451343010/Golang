@@ -27,6 +27,13 @@ func (memberController *MemberController) Router(engine *gin.Engine) {
 	engine.POST("/api/login_pwd", memberController.loginPwd)
 	// 头像上传
 	engine.POST("/api/upload/avator", memberController.uploadAvator)
+	// 用户信息查询
+	engine.GET("/api/userinfo", memberController.userInfo)
+
+}
+
+// 用户信息查询
+func (memberController *MemberController) userInfo(context *gin.Context) {
 
 }
 

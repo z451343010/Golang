@@ -13,6 +13,7 @@ type ShopController struct {
 func (sc *ShopController) Router(engine *gin.Engine) {
 
 	engine.GET("/api/shops", sc.GetShopList)
+	engine.GET("/api/search_shops", sc.SearchShops)
 
 }
 
@@ -38,5 +39,29 @@ func (sc *ShopController) GetShopList(context *gin.Context) {
 	}
 
 	tool.Failed(context, "暂未获取到商户信息")
+
+}
+
+// 关键词搜索店铺信息
+func (sc *ShopController) SearchShops(context *gin.Context) {
+
+	longitude := context.Query("longitude")
+	latitude := context.Query("latitude")
+	keyword := context.Query("keyword")
+
+	if keyword == "" {
+		tool.Failed(context, "重新输入商铺名称")
+		return
+	}
+
+	if longitude == "" || longitude == "undefined" || latitude == "" || latitude == "undefined" {
+		longitude = "118.6695"
+		latitude = "24.8709"
+	}
+
+	// 执行真实的搜索逻辑
+	shopService := service.ShopService{}
+	shops := shopService.SearchShops(longitude, latitude, keyword)
+	tool.Success(context, shops)
 
 }
