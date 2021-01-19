@@ -53,6 +53,13 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 		return nil, err
 	}
 
+	// 把结构体 Shop 映射成数据库的一张表
+	err = engine.Sync2(new(model.Shop))
+	if err != nil {
+		fmt.Println("把 Shop 映射成表时出错")
+		return nil, err
+	}
+
 	orm := new(Orm)
 	orm.Engine = engine
 
