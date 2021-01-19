@@ -8,6 +8,7 @@ import (
 	"gin/CloudRestaurant/param"
 	"gin/CloudRestaurant/tool"
 	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
@@ -153,5 +154,19 @@ func (memberService *MemberService) UploadAvatar(userId int64, fileName string) 
 	}
 
 	return string(result)
+
+}
+
+// 查询用户信息
+func (ms *MemberService) GetUserInfo(userId string) *model.Member {
+
+	id, err := strconv.Atoi(userId)
+	if err != nil {
+		fmt.Println("转换 userId 失败")
+		return nil
+	}
+
+	memberDao := dao.MemberDao{tool.DbEngine}
+	return memberDao.QueryMemberById(int64(id))
 
 }

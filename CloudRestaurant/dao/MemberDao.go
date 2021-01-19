@@ -107,3 +107,17 @@ func (memberDao *MemberDao) UpdateMemberAvatar(userId int64, fileName string) in
 	return result
 
 }
+
+// 根据用户的ID进行查询
+func (memberDao *MemberDao) QueryMemberById(id int64) *model.Member {
+
+	var member model.Member
+	_, err := memberDao.Orm.Where(" id = ? ", id).Get(&member)
+	if err != nil {
+		fmt.Println("根据 userId 查询失败")
+		return nil
+	}
+
+	return &member
+
+}

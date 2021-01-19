@@ -35,6 +35,22 @@ func (memberController *MemberController) Router(engine *gin.Engine) {
 // 用户信息查询
 func (memberController *MemberController) userInfo(context *gin.Context) {
 
+	cookie, err := tool.CookieAuth(context)
+	if err != nil {
+		context.Abort()
+		tool.Failed(context, "还未登录，请先登录")
+		return
+	}
+
+	memberService := service.MemberService{}
+	member := memberService.GetUserInfo(cookie.Value)
+	if member != nil {
+		tool.Success(context, member)
+		return
+	}
+
+	tool.Failed(context, "获取客户信息失败")
+
 }
 
 // 用户名 + 密码 登录
@@ -145,6 +161,8 @@ func (memberController *MemberController) smsLogin(context *gin.Context) {
 			tool.Failed(context, "保存 session 失败")
 			return
 		}
+
+		context.SetCookie("cookie_user", strconv.Itoa(int(member.Id)), 10*60, "/", "localhost", true, true)
 
 		tool.Success(context, member)
 		return
