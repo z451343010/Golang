@@ -1,0 +1,17 @@
+{
+    "app_name":"进出货管理系统",
+    "app_mode":"debug",
+    "app_host":"localhost",
+    "app_port":"8080",
+    "log_path":"../log/projectLog.txt",
+    "database":{
+        "driver":"mysql",
+        "user":"root",
+        "password":"zZ18960313139",
+        "host":"127.0.0.1",
+        "port":"3306",
+        "db_name":"financialsystem",
+        "charset":"utf8",
+        "show_sql":true
+    }
+}
