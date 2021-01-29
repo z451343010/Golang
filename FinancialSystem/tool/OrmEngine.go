@@ -39,6 +39,20 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 		return nil, err
 	}
 
+	// 把结构体 Goods 映射成数据库的一张表
+	err = engine.Sync2(new(model.Goods))
+	if err != nil {
+		LogRecoder(cfg, "OrmEngine", err)
+		return nil, err
+	}
+
+	// 把结构体 PurchaseShoppingCart 映射成数据库的一张表
+	err = engine.Sync2(new(model.PurchaseShoppingCart))
+	if err != nil {
+		LogRecoder(cfg, "OrmEngine", err)
+		return nil, err
+	}
+
 	orm := new(Orm)
 	orm.Engine = engine
 

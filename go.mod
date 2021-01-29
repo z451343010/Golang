@@ -17,6 +17,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/mojocn/base64Captcha v1.2.2
 	github.com/ugorji/go v1.2.2 // indirect
+	github.com/xingliuhua/leaf v1.1.2
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
 	golang.org/x/image v0.0.0-20201208152932-35266b937fa6 // indirect
 	golang.org/x/sys v0.0.0-20210105210732-16f7687f5001 // indirect

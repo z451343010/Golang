@@ -13,6 +13,9 @@ import (
 // 路由设置
 func registerRouter(router *gin.Engine) {
 	new(controller.UserController).Router(router)
+	new(controller.GoodsController).Router(router)
+	new(controller.PurchaseOrderController).Router(router)
+	new(controller.PurchaseShoppingCartController).Router(router)
 }
 
 func main() {

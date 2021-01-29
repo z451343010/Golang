@@ -33,6 +33,7 @@ func (uc *UserController) userLogin(context *gin.Context) {
 	userService := service.UserService{}
 	user := userService.LoginPwd(userParam.Username, userParam.Password)
 	if user.UserId != 0 {
+		user.Password = ""
 		tool.Success(context, user)
 		return
 	}
