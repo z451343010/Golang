@@ -36,7 +36,7 @@ func (podc *PurchaseOrderDetailController) commitPurchaseOrder(context *gin.Cont
 	var purchaseOrderDetails []model.PurchaseOrderDetail
 
 	for _, value := range purchaseShoppingCarts {
-		purchaseOrderDetail := model.PurchaseOrderDetail{orderId: purchaseDetailOrderId}
+		purchaseOrderDetail := model.PurchaseOrderDetail{OrderId: purchaseDetailOrderId}
 		purchaseOrderDetail.GoodsId = value.GoodsId
 		purchaseOrderDetail.GoodsUnitNum = value.GoodsUnitNum
 		purchaseOrderDetail.GoodsSingleNum = value.GoodsSingleNum
@@ -44,9 +44,12 @@ func (podc *PurchaseOrderDetailController) commitPurchaseOrder(context *gin.Cont
 		purchaseOrderDetail.GoodsSinglePrice = value.GoodsSinglePrice
 		purchaseOrderDetail.OrderTotalPrice = value.OrderTotalPrice
 		purchaseOrderDetail.IsDebt = value.IsDebt
-		append(purchaseOrderDetails, purchaseOrderDetail)
+		purchaseOrderDetails = append(purchaseOrderDetails, purchaseOrderDetail)
 	}
 
 	fmt.Println("purchaseOrderDetails = ", purchaseOrderDetails)
+
+	purchaseOrderDetailService := service.PurchaseOrderDetailService{}
+	purchaseOrderDetailService.CommitPurchaseOrder(purchaseOrderDetails)
 
 }

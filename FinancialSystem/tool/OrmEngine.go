@@ -32,22 +32,19 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 	// 显示 SQL 语句
 	engine.ShowSQL(database.ShowSql)
 
-	// 把结构体 User 映射成数据库的一张表
-	err = engine.Sync2(new(model.User))
-	if err != nil {
-		LogRecoder(cfg, "OrmEngine", err)
-		return nil, err
-	}
-
-	// 把结构体 Goods 映射成数据库的一张表
-	err = engine.Sync2(new(model.Goods))
-	if err != nil {
-		LogRecoder(cfg, "OrmEngine", err)
-		return nil, err
-	}
-
-	// 把结构体 PurchaseShoppingCart 映射成数据库的一张表
-	err = engine.Sync2(new(model.PurchaseShoppingCart))
+	// 把结构体映射成数据库中的表
+	err = engine.Sync2(
+		// 把结构体 User 映射成数据库的一张表
+		new(model.User),
+		// 把结构体 Goods 映射成数据库的一张表
+		new(model.Goods),
+		// 把结构体 PurchaseShoppingCart 映射成数据库的一张表
+		new(model.PurchaseShoppingCart),
+		// 把结构体 PurchaseOrderDetail 映射成数据库的一张表
+		new(model.PurchaseOrderDetail),
+		// 把结构体 InStock 映射成数据库的一张表
+		new(model.InStock),
+	)
 	if err != nil {
 		LogRecoder(cfg, "OrmEngine", err)
 		return nil, err
