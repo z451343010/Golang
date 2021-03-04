@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin/FinancialSystem/model"
 	"gin/FinancialSystem/tool"
+	"time"
 )
 
 type PurchaseOrderDetailDao struct {
@@ -23,8 +24,13 @@ func (pod *PurchaseOrderDetailDao) CommitPurchaseDetail(purchaseOrderDetails []m
 		return
 	}
 
+	var purchaseOrderTotalPrice float64
+
 	// 把进货单详情插入数据库
 	for _, value := range purchaseOrderDetails {
+
+		purchaseOrderTotalPrice += float64(value.GoodsSingleNum)*value.GoodsSinglePrice +
+			float64(value.GoodsUnitNum)*value.GoodsUnitPrice
 
 		// 插入进货单详情
 		_, err = session.InsertOne(&value)
@@ -61,6 +67,17 @@ func (pod *PurchaseOrderDetailDao) CommitPurchaseDetail(purchaseOrderDetails []m
 	}
 
 	// 插入进货单记录
+	purchaseOrder := model.PurchaseOrder{}
+	purchaseOrder.OrderId = purchaseOrderDetails[0].OrderId
+	purchaseOrder.OrderMan = "高赟晖"
+	timeNow := time.Now()
+	timeString := timeNow.Format("2006-01-02 15:04:05")
+	purchaseOrder.OrderDate = timeString
+	purchaseOrder.OrderTotalPrice = purchaseOrderTotalPrice
+	_, err = session.InsertOne(&purchaseOrder)
+	if err != nil {
+		session.Rollback()
+	}
 
 	// 提交事务
 	err = session.Commit()

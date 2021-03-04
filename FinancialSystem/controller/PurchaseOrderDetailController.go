@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"gin/FinancialSystem/model"
 	"gin/FinancialSystem/service"
 	"gin/FinancialSystem/tool"
@@ -46,8 +45,6 @@ func (podc *PurchaseOrderDetailController) commitPurchaseOrder(context *gin.Cont
 		purchaseOrderDetail.IsDebt = value.IsDebt
 		purchaseOrderDetails = append(purchaseOrderDetails, purchaseOrderDetail)
 	}
-
-	fmt.Println("purchaseOrderDetails = ", purchaseOrderDetails)
 
 	purchaseOrderDetailService := service.PurchaseOrderDetailService{}
 	purchaseOrderDetailService.CommitPurchaseOrder(purchaseOrderDetails)
