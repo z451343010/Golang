@@ -17,6 +17,8 @@ func registerRouter(router *gin.Engine) {
 	new(controller.PurchaseOrderController).Router(router)
 	new(controller.PurchaseShoppingCartController).Router(router)
 	new(controller.PurchaseOrderDetailController).Router(router)
+	new(controller.ShippingShoppingCartController).Router(router)
+	new(controller.ShippingOrderDetailController).Router(router)
 }
 
 func main() {

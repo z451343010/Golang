@@ -1,4 +1,5 @@
-{
+{   
+    "company_name":"William百货贸易有限公司",
     "app_name":"进出货管理系统",
     "app_mode":"debug",
     "app_host":"localhost",

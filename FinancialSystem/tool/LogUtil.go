@@ -22,4 +22,6 @@ func LogRecoder(cfg *Config, path string, err error) {
 		log.Println(err.Error())
 	}
 
+	defer file.Close()
+
 }

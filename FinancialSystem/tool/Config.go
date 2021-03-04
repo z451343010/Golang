@@ -7,12 +7,13 @@ import (
 )
 
 type Config struct {
-	AppName  string         `json:"app_name"`
-	AppMode  string         `json:"app_mode"`
-	AppHost  string         `json:"app_host"`
-	AppPort  string         `json:"app_port"`
-	LogPath  string         `json:"log_path"`
-	Database DatabaseConfig `json:"database"`
+	CompanyName string         `json:"company_name"`
+	AppName     string         `json:"app_name"`
+	AppMode     string         `json:"app_mode"`
+	AppHost     string         `json:"app_host"`
+	AppPort     string         `json:"app_port"`
+	LogPath     string         `json:"log_path"`
+	Database    DatabaseConfig `json:"database"`
 }
 
 type DatabaseConfig struct {

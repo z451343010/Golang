@@ -47,7 +47,7 @@ func (pscd *PurchaseShoppingCartDao) SelectPurchaseDetailByOrderId(orderId int64
 	err := pscd.Orm.Where("order_id = ?", orderId).Find(&purchaseShoppingCarts)
 	if err != nil {
 		cfg := tool.GetConfig()
-		tool.LogRecoder(cfg, "PurchaseShoppingCartDao FindPurchaseDetailByOrderId", err)
+		tool.LogRecoder(cfg, "PurchaseShoppingCartDao SelectPurchaseDetailByOrderId", err)
 		return nil, err
 	}
 

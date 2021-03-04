@@ -46,6 +46,12 @@ func OrmEngine(cfg *Config) (*Orm, error) {
 		new(model.InStock),
 		// 把结构体 PurchaseOrder 映射成数据库的一张表
 		new(model.PurchaseOrder),
+		// 把结构体 ShippingOrder 映射成数据库的一张表
+		new(model.ShippingOrder),
+		// 把结构体 ShippingOrderDetail 映射成数据库的一张表
+		new(model.ShippingOrderDetail),
+		// 把结构体 ShippingShoppingCart 映射成数据库的一张表
+		new(model.ShippingShoppingCart),
 	)
 	if err != nil {
 		LogRecoder(cfg, "OrmEngine", err)
